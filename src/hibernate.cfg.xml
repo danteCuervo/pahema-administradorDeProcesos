@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://Dante-Dell\SQLSERVER2008;databaseName=CRM_PAHEMA_DESARROLLO</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">_556_2005</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    
+    <mapping class="ar.com.pahema.entidades.Cliente"/>
+    <mapping class="ar.com.pahema.entidades.Paquete"/>
+    <mapping class="ar.com.pahema.entidades.TipoPaquete"/>
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteAbonado"/>
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteMouse"/>
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras"/>
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClientePotencial"/>
+  </session-factory>
+</hibernate-configuration>
