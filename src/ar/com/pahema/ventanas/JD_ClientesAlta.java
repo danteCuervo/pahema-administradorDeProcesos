@@ -8,14 +8,21 @@ package ar.com.pahema.ventanas;
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.entidades.Llave;
 import ar.com.pahema.entidades.dao.ClienteDAO;
+import ar.com.pahema.entidades.tiposCliente.ClienteAbonado;
+import ar.com.pahema.entidades.tiposCliente.ClienteMouse;
+import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
+import ar.com.pahema.entidades.tiposCliente.ClientePotencial;
+import ar.com.pahema.utils.DatosCreacionCliente;
 import ar.com.pahema.utils.Mensaje;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Dante
  */
-public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
+public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
+
     private Cliente cliente;
     private static ClienteDAO cDAO = new ClienteDAO();
 
@@ -270,20 +277,32 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
 //                    cmbTipoSistema.getSelectedItem().toString().trim(),
 //                    (Llave) txtLlave.getValue());
 //
-//            switch (cmbTipoCliente.getSelectedItem().toString()) {
-//                case "Abonado":
-//                    c.setTipoCliente(new Abonado());
-//                    break;
-//                case "Mouse":
-//                    c.setTipoCliente(new Mouse());
-//                    break;
-//                case "Paquete horas":
-//                    c.setTipoCliente(new PaqueteHoras());
-//                    break;
-//                case "Potencial":
-//                    c.setTipoCliente("POTENCIAL");
-//                    break;
-//            }
+            DatosComunesClientes datos = new DatosComunesClientes(
+                    txtRazonSocial.getText().trim(),
+                    txtDomicilio.getText().trim(),
+                    txtTel1.getText().trim(),
+                    txtTel2.getText().trim(),
+                    txtContacto1.getText().trim(),
+                    txtLocalidad.getText().trim(),
+                    txtEmail.getText().trim(),
+                    txtCuit.getText().trim(),
+                    cmbTipoSistema.getSelectedItem().toString().trim(),
+                    (Llave) txtLlave.getValue());
+                    
+            switch (cmbTipoCliente.getSelectedItem().toString()) {
+                case "Abonado":
+                    cliente = new ClienteAbonado(datos);
+                    break;
+                case "Mouse":
+                    cliente = new ClienteMouse(datos);
+                    break;
+                case "Paquete horas":
+                    cliente = new ClientePaqueteHoras(datos);
+                    break;
+                case "Potencial":
+                    cliente = new ClientePotencial(datos);
+                    break;
+            }
 //            try {
 //                cDAO.guardarCliente(c);
 //                lanzarMensajeExitoso("El cliente: "+c.getRazonSocial()+" se ha guardado correctamente.");
@@ -416,7 +435,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
         }
         return true;
     }
-    
+
     @Override
     public void lanzarMensajeAlerta(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Alta de Clientes", JOptionPane.WARNING_MESSAGE);

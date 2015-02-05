@@ -7,6 +7,8 @@
 package ar.com.pahema.entidades.tiposCliente;
 
 import ar.com.pahema.entidades.Cliente;
+import ar.com.pahema.entidades.Llave;
+import ar.com.pahema.ventanas.DatosComunesClientes;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -20,12 +22,10 @@ import javax.persistence.Id;
 
 //@Entity
 //@DiscriminatorValue(value="ABO")
-//public class ClienteAbonado extends TipoCliente{
-//    
-//    
-//
-//    public ClienteAbonado(){
-//    }    
-//    
-//    
-//}
+public class ClienteAbonado extends Cliente{
+       
+    public ClienteAbonado(DatosComunesClientes datos){
+        super(datos);
+    }    
+    
+}

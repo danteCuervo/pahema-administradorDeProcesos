@@ -7,15 +7,6 @@
 package ar.com.pahema.entidades;
 
 import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
-import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
@@ -23,13 +14,13 @@ import javax.persistence.Table;
  */
 public class Paquete {
     
-    private Cliente cliente;
     private int id;
     private double cantidadHoras;
     private double horasRestantes;
-    private final double minimoHoras = 2;
+    private double avisoALaHora;
     
-    public Paquete(double cantidadHoras){
+    public Paquete(double cantidadHoras,double aviso){
+        this.avisoALaHora = aviso;
         this.cantidadHoras = cantidadHoras;
         this.horasRestantes = cantidadHoras;
     }
@@ -46,20 +37,6 @@ public class Paquete {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the cliente
-     */
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    /**
-     * @param cliente the cliente to set
-     */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     /**
@@ -90,12 +67,27 @@ public class Paquete {
         this.horasRestantes = horasRestantes;
     }
 
+    
     public void consumir(double horasAConsumir) {
         this.setHorasRestantes(horasRestantes - horasAConsumir);
-        if(this.horasRestantes <= minimoHoras){
+        if(this.horasRestantes <= this.getAvisoALaHora()){
             AlarmaHorasPaquete alarma = new AlarmaHorasPaquete();
             alarma.notificarATodos();
         }
+    }
+
+    /**
+     * @return the avisoALaHora
+     */
+    public double getAvisoALaHora() {
+        return avisoALaHora;
+    }
+
+    /**
+     * @param avisoALaHora the avisoALaHora to set
+     */
+    public void setAvisoALaHora(double avisoALaHora) {
+        this.avisoALaHora = avisoALaHora;
     }
       
 }

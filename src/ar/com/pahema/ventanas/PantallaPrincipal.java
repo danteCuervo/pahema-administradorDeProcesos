@@ -23,7 +23,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     public PantallaPrincipal() {
         initComponents();
-        obtenerSesionHibernate();
+        //obtenerSesionHibernate();
         abierta = true;
         this.setExtendedState(MAXIMIZED_BOTH);
     }

@@ -8,6 +8,10 @@ package ar.com.pahema.entidades.tiposCliente;
 
 //import javax.persistence.DiscriminatorValue;
 
+import ar.com.pahema.entidades.Cliente;
+import ar.com.pahema.ventanas.DatosComunesClientes;
+
+
 
 //import javax.persistence.Entity;
 //
@@ -17,12 +21,13 @@ package ar.com.pahema.entidades.tiposCliente;
 // */
 //@Entity
 //@DiscriminatorValue("MOU")
-//public class ClienteMouse extends TipoCliente{
-////    private String as;
-////    public ClienteMouse(){
-//    }
-//    
-//    
-//    
-//    
-//}
+public class ClienteMouse extends Cliente{
+
+    public ClienteMouse(DatosComunesClientes datos){
+        super(datos);
+    }
+    
+    
+    
+    
+}

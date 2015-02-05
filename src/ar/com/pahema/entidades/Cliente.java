@@ -5,6 +5,7 @@
  */
 package ar.com.pahema.entidades;
 
+import ar.com.pahema.ventanas.DatosComunesClientes;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,18 +27,18 @@ public abstract class Cliente{
     public void eliminarLlave(Llave llave){
         this.llaves.remove(llave);
     }
-
-    public Cliente(String razonSocial, String domicilio, String telefono1, String telefono2, String contacto1, String localidad, String email, String cuit, String tipoSistema, Llave llave) {
-        this.setRazonSocial(razonSocial);
-        this.setDomicilio(domicilio);
-        this.setTelefono_1(telefono1);
-        this.setTelefono_2(telefono2);
-        this.setContacto_1(contacto1);
-        this.setLocalidad(localidad);
-        this.setEmail(email);
-        this.setCuit(cuit);
-        this.setTipoDeSistema(tipoSistema);
-        agregarLlave(llave);
+   
+    public Cliente(DatosComunesClientes d){
+        this.setRazonSocial(d.getRazonSocial());
+        this.setDomicilio(d.getDomicilio());
+        this.setTelefono_1(d.getTelefono1());
+        this.setTelefono_2(d.getTelefono2());
+        this.setContacto_1(d.getContacto1());
+        this.setLocalidad(d.getLocalidad());
+        this.setEmail(d.getEmail());
+        this.setCuit(d.getCuit());
+        this.setTipoDeSistema(d.getTipoSistema());
+        agregarLlave(d.getLlave());
     }
     private int idCliente;
 
@@ -73,10 +74,10 @@ public abstract class Cliente{
     private String tipoDeSistema;
 
 //    @Column(name = "TIPO_CLIENTE", nullable = false, length = 30)
-    private String tipoCliente;
+    //private String tipoCliente;
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "FK_TIPO_CLIENTE",nullable = false)
-    //private TipoCliente tipoCliente;
+    private TipoCliente tipoCliente;
 
 //    @Transient
 //    @OneToOne
@@ -221,14 +222,14 @@ public abstract class Cliente{
     /**
      * @return the tipoCliente
      */
-    public String getTipoCliente() {
+    public TipoCliente getTipoCliente() {
         return tipoCliente;
     }
 
     /**
      * @param tipoCliente the tipoCliente to set
      */
-    public void setTipoCliente(String tipoCliente) {
+    public void setTipoCliente(TipoCliente tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 

@@ -27,7 +27,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
 
     public static boolean abierta;
     public static ModeloTablaClientes modelo;
-    ClienteDAO cDao = new ClienteDAO();
+    ClienteDAO cDao;
 
     /**
      * Creates new form ClientesAdministrador
@@ -44,6 +44,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
         inhabilitarCampo(txtTipoDeLlave);
         inhabilitarCampo(txtTipoDeSistema);
         btnSincronizar.setVisible(false);
+        cDao = new ClienteDAO();
     }
 
     /**

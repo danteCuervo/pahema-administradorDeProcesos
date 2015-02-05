@@ -9,10 +9,10 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
     
-    <mapping class="ar.com.pahema.entidades.Cliente"/>
+<!--    <mapping class="ar.com.pahema.entidades.Cliente"/>
     <mapping class="ar.com.pahema.entidades.Llave"/>
     <mapping class="ar.com.pahema.entidades.Paquete"/>
-    <mapping class="ar.com.pahema.entidades.TipoPaquete"/>
+    <mapping class="ar.com.pahema.entidades.TipoPaquete"/>-->
 
 <!--    <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteAbonado"/>
     <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteMouse"/>

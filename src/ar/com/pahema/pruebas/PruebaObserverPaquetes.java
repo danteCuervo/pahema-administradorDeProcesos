@@ -6,8 +6,10 @@
 package ar.com.pahema.pruebas;
 
 import ar.com.pahema.entidades.Llave;
+import ar.com.pahema.entidades.Paquete;
 import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
+import ar.com.pahema.ventanas.DatosComunesClientes;
 
 /**
  *
@@ -19,7 +21,9 @@ public class PruebaObserverPaquetes {
         Llave llave = new Llave();
         llave.setTipo("virtual");
         AlarmaHorasPaquete a = new AlarmaHorasPaquete();
-        ClientePaqueteHoras c = new ClientePaqueteHoras("razon soci", null, null, null, null, null, null, null, null, llave, 10);
+        DatosComunesClientes d = new DatosComunesClientes("razon soci", null, null, null, null, null, null, null, null, llave);
+        ClientePaqueteHoras c = new ClientePaqueteHoras(d);
+        c.setPaquete(new Paquete(10,2));
         a.agregarObservador(c);
         
         System.out.println(c.getPaquete().getHorasRestantes());
@@ -31,9 +35,6 @@ public class PruebaObserverPaquetes {
         c.getPaquete().consumir(1);
         c.getPaquete().consumir(1);
         c.getPaquete().consumir(1);
-
-      
-        
     }
 
 }

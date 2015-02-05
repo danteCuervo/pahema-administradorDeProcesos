@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package ar.com.pahema.entidades.tiposCliente;
-
-import ar.com.pahema.entidades.Cliente;
+package ar.com.pahema.entidades.tiposSistema;
 
 /**
  *
  * @author Dante
  */
-public interface TipoCliente{
+public class Capataz {
     
 }
