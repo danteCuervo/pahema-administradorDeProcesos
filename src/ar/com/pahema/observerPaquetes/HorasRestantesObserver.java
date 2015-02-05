@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 
-package ar.com.pahema.entidades.tiposCliente;
+package ar.com.pahema.observerPaquetes;
+
+import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 
 /**
  *
  * @author Dante
  */
-public interface TipoCliente {
+public interface HorasRestantesObserver{
+        public void enviar();   
 }

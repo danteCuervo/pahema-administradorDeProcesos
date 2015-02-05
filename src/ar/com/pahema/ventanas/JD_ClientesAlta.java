@@ -6,11 +6,8 @@
 package ar.com.pahema.ventanas;
 
 import ar.com.pahema.entidades.Cliente;
+import ar.com.pahema.entidades.Llave;
 import ar.com.pahema.entidades.dao.ClienteDAO;
-import ar.com.pahema.entidades.tiposCliente.ClienteAbonado;
-import ar.com.pahema.entidades.tiposCliente.ClienteMouse;
-import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
-import ar.com.pahema.entidades.tiposCliente.ClientePotencial;
 import ar.com.pahema.utils.Mensaje;
 import javax.swing.JOptionPane;
 
@@ -19,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Dante
  */
 public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
-
+    private Cliente cliente;
     private static ClienteDAO cDAO = new ClienteDAO();
 
     /**
@@ -62,6 +59,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cmbTipoCliente = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        txtLlave = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -94,6 +93,14 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
 
         jLabel11.setText("Tipo de cliente");
 
+        jLabel2.setText("Llave");
+
+        try {
+            txtLlave.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######/###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,40 +108,34 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail)
-                            .addComponent(txtLocalidad)
-                            .addComponent(txtRazonSocial)
-                            .addComponent(txtTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDomicilio)
-                                    .addComponent(txtTel2)
-                                    .addComponent(txtContacto1)
-                                    .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbTipoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel2))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbTipoCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLocalidad)
+                    .addComponent(txtTel1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                    .addComponent(txtEmail)
+                    .addComponent(txtRazonSocial)
+                    .addComponent(txtLlave))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbTipoSistema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDomicilio)
+                    .addComponent(txtTel2)
+                    .addComponent(txtContacto1)
+                    .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,10 +155,12 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtTel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel11)
+                            .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -173,16 +176,17 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
                         .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtContacto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtContacto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(cmbTipoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtLlave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         btnLimpiar.setText("Limpiar Registro");
@@ -238,7 +242,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -255,36 +259,41 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validarCampos()) {
-            Cliente c = new Cliente(txtRazonSocial.getText(),
-                    txtDomicilio.getText(),
-                    txtTel1.getText(),
-                    txtTel2.getText(),
-                    txtContacto1.getText(),
-                    txtLocalidad.getText(),
-                    txtEmail.getText(),
-                    txtCuit.getText(),
-                    cmbTipoSistema.getSelectedItem().toString());
-
-            switch (cmbTipoCliente.getSelectedItem().toString()) {
-                case "Abonado":
-                    c.setTipoCliente(new ClienteAbonado());
-                    break;
-                case "Mouse":
-                    c.setTipoCliente(new ClienteMouse());
-                    break;
-                case "Paquete horas":
-                    c.setTipoCliente(new ClientePaqueteHoras());
-                    break;
-                case "Potencial":
-                    c.setTipoCliente(new ClientePotencial());
-                    break;
-            }
-            try {
-                cDAO.guardarCliente(c);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                lanzarMensajeError("No se ha podido guardar al cliente: "+c.getCodCliente() + " " + c.getRazonSocial());
-            }
+//           cliente = new Cliente(txtRazonSocial.getText().trim(),
+//                    txtDomicilio.getText().trim(),
+//                    txtTel1.getText().trim(),
+//                    txtTel2.getText().trim(),
+//                    txtContacto1.getText().trim(),
+//                    txtLocalidad.getText().trim(),
+//                    txtEmail.getText().trim(),
+//                    txtCuit.getText().trim(),
+//                    cmbTipoSistema.getSelectedItem().toString().trim(),
+//                    (Llave) txtLlave.getValue());
+//
+//            switch (cmbTipoCliente.getSelectedItem().toString()) {
+//                case "Abonado":
+//                    c.setTipoCliente(new Abonado());
+//                    break;
+//                case "Mouse":
+//                    c.setTipoCliente(new Mouse());
+//                    break;
+//                case "Paquete horas":
+//                    c.setTipoCliente(new PaqueteHoras());
+//                    break;
+//                case "Potencial":
+//                    c.setTipoCliente("POTENCIAL");
+//                    break;
+//            }
+//            try {
+//                cDAO.guardarCliente(c);
+//                lanzarMensajeExitoso("El cliente: "+c.getRazonSocial()+" se ha guardado correctamente.");
+//                borrarCampos();
+//                ClientesAdministrador.modelo.cargarCliente(c);
+//                this.dispose();
+//            } catch (Exception ex) {
+//                System.out.println(ex.getMessage());
+//                lanzarMensajeError("No se ha podido guardar al cliente: "+c.getIdCliente() + " " + c.getRazonSocial());
+//            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -338,6 +347,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -351,6 +361,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtDomicilio;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JFormattedTextField txtLlave;
     private javax.swing.JTextField txtLocalidad;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTel1;
@@ -366,6 +377,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
         txtRazonSocial.setText("");
         txtTel1.setText("");
         txtTel2.setText("");
+        cmbTipoCliente.setSelectedIndex(-1);
+        cmbTipoSistema.setSelectedIndex(-1);
     }
 
     private void cargarComboTiposDeSistema() {
@@ -386,9 +399,19 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje{
 
     private boolean validarCampos() {
         if (txtRazonSocial.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "La razón social no puede estar vacía.", "Guardar", JOptionPane.WARNING_MESSAGE);
+            lanzarMensajeAlerta("La razón social no puede estar vacía.");
             txtRazonSocial.setText("");
             txtRazonSocial.requestFocus();
+            return false;
+        }
+        if (cmbTipoCliente.getSelectedIndex() == -1) {
+            lanzarMensajeAlerta("Debe asignarle un tipo al cliente.");
+            cmbTipoCliente.requestFocus();
+            return false;
+        }
+        if (cmbTipoSistema.getSelectedIndex() == -1) {
+            lanzarMensajeAlerta("Debe asignarle un tipo de sistema al cliente.");
+            cmbTipoSistema.requestFocus();
             return false;
         }
         return true;

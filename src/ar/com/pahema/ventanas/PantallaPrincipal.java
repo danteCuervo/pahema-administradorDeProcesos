@@ -6,8 +6,6 @@
 package ar.com.pahema.ventanas;
 
 import ar.com.pahema.hibernate.HibernateUtil;
-import ar.com.pahema.hibernate.HibernateUtil__;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -188,7 +186,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void obtenerSesionHibernate() {
         sesionCRM = HibernateUtil.currentSession();
-        HibernateUtil.addConfigFile("Tango.hibernate.cfg.xml", "Tango");
+        //HibernateUtil.addConfigFile("Tango.hibernate.cfg.xml", "Tango");
         //sesionTango = HibernateUtil.currentSession("Tango");
     }
 

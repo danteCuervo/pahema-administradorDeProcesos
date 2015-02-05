@@ -6,6 +6,7 @@
 
 package ar.com.pahema.entidades;
 
+import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
 import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,28 +21,17 @@ import javax.persistence.Table;
  *
  * @author Dante
  */
-@Entity
-@Table(name = "Paquetes")
-public abstract class Paquete {
+public class Paquete {
     
-    @Id
-    @GeneratedValue
-    @Column(name = "ID_PAQUETE")
-    private int id;
-    
-    @OneToOne
-    @JoinColumn(name = "ID_CLIENTE")
     private Cliente cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_PAQUETE")
-    private TipoPaquete tipo;
+    private int id;
+    private double cantidadHoras;
+    private double horasRestantes;
+    private final double minimoHoras = 2;
     
-    /**
-     * @return the cliente
-     */
-    public Cliente getCliente() {
-        return cliente;
+    public Paquete(double cantidadHoras){
+        this.cantidadHoras = cantidadHoras;
+        this.horasRestantes = cantidadHoras;
     }
 
     /**
@@ -52,13 +42,6 @@ public abstract class Paquete {
     }
 
     /**
-     * @param cliente the cliente to set
-     */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    /**
      * @param id the id to set
      */
     public void setId(int id) {
@@ -66,18 +49,53 @@ public abstract class Paquete {
     }
 
     /**
-     * @return the tipo
+     * @return the cliente
      */
-    public TipoPaquete getTipo() {
-        return tipo;
+    public Cliente getCliente() {
+        return cliente;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param cliente the cliente to set
      */
-    public void setTipo(TipoPaquete tipo) {
-        this.tipo = tipo;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
-    
-    
+
+    /**
+     * @return the cantidadHoras
+     */
+    public double getCantidadHoras() {
+        return cantidadHoras;
+    }
+
+    /**
+     * @param cantidadHoras the cantidadHoras to set
+     */
+    public void setCantidadHoras(double cantidadHoras) {
+        this.cantidadHoras = cantidadHoras;
+    }
+
+    /**
+     * @return the horasRestantes
+     */
+    public double getHorasRestantes() {
+        return horasRestantes;
+    }
+
+    /**
+     * @param horasRestantes the horasRestantes to set
+     */
+    public void setHorasRestantes(double horasRestantes) {
+        this.horasRestantes = horasRestantes;
+    }
+
+    public void consumir(double horasAConsumir) {
+        this.setHorasRestantes(horasRestantes - horasAConsumir);
+        if(this.horasRestantes <= minimoHoras){
+            AlarmaHorasPaquete alarma = new AlarmaHorasPaquete();
+            alarma.notificarATodos();
+        }
+    }
+      
 }

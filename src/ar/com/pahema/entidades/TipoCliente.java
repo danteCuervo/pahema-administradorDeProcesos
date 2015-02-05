@@ -3,29 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ar.com.pahema.entidades;
 
-package ar.com.pahema.entidades.tiposCliente;
-
-import ar.com.pahema.entidades.Cliente;
 import java.io.Serializable;
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Dante
  */
-
 //@Entity
-//@DiscriminatorValue(value="ABO")
-//public class ClienteAbonado extends TipoCliente{
-//    
-//    
-//
-//    public ClienteAbonado(){
-//    }    
-//    
-//    
-//}
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn
+public interface TipoCliente{
+    
+}

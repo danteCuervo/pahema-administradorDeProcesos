@@ -7,6 +7,7 @@ package ar.com.pahema.utils;
 
 import ar.com.pahema.entidades.Cliente;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,14 +23,33 @@ public class ModeloTablaClientes extends DefaultTableModel {
         this.addColumn("Telefono 1");
         this.addColumn("Telefono 2");
         this.addColumn("Contacto 1");
-        this.addColumn("Contacto 2");
+        this.addColumn("CUIT");
+        this.addColumn("Tipo Cliente");
+        this.addColumn("Tipo Sistema");
     }
 
-    public void llenarTabla(ArrayList<Cliente> clientes) {
-        for (Cliente cliente : clientes) {
-            Vector v = new Vector();
-            v.addAll(clientes);
-            this.addRow(v);
+    public void llenarTabla(List<Cliente> clientes) {
+        for (Cliente c : clientes) {
+            Vector<Object> fila = new Vector<Object>();
+            cargarDatos(fila, c);
+
         }
+    }
+
+    public void cargarCliente(Cliente c) {
+        Vector<Object> fila = new Vector<Object>();
+        cargarDatos(fila, c);
+    }
+
+    private void cargarDatos(Vector<Object> fila, Cliente c) {
+        fila.add(c.getRazonSocial());
+        fila.add(c.getDomicilio());
+        fila.add(c.getTelefono_1());
+        fila.add(c.getTelefono_2());
+        fila.add(c.getContacto_1());
+        fila.add(c.getCuit());
+        fila.add(c.getTipoCliente());
+        fila.add(c.getTipoDeSistema());
+        this.addRow(fila);
     }
 }

@@ -36,13 +36,7 @@ public class ClienteDAO {
         try {
             iniciaOperacion();
             clientes
-                    = (ArrayList<Cliente>) sesionCRM.createQuery("select "
-                            + "c.razonSocial,"
-                            + "c.domicilio,"
-                            + "c.telefono_1,"
-                            + "c.telefono_2,"
-                            + "c.contacto_1 \n"
-                            + "from Cliente c").list();
+                    = sesionCRM.createQuery("from Cliente c").list();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;

@@ -8,10 +8,8 @@ package ar.com.pahema.pruebas;
 
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.entidades.Paquete;
-import ar.com.pahema.entidades.Paquete5horas;
 import ar.com.pahema.entidades.Servicio;
 import ar.com.pahema.entidades.Tecnico;
-import ar.com.pahema.entidades.TipoPaquete;
 import java.util.ArrayList;
 
 /**

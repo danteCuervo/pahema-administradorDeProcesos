@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -25,7 +26,7 @@ import javax.swing.table.TableRowSorter;
 public class ClientesAdministrador extends javax.swing.JInternalFrame implements Mensaje{
 
     public static boolean abierta;
-    private ModeloTablaClientes modelo;
+    public static ModeloTablaClientes modelo;
     ClienteDAO cDao = new ClienteDAO();
 
     /**
@@ -39,8 +40,10 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
                 true);//iconifiable
         initComponents();
         abierta = true;
-        crearTabla();
-        cargarClientes();           
+        crearTabla();   
+        inhabilitarCampo(txtTipoDeLlave);
+        inhabilitarCampo(txtTipoDeSistema);
+        btnSincronizar.setVisible(false);
     }
 
     /**
@@ -74,11 +77,13 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tClientes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameClosed(evt);
@@ -92,6 +97,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -174,7 +180,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTipoDeLlave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         btnEliminar.setText("Eliminar");
@@ -252,6 +258,9 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
                 .addContainerGap())
         );
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ar/com/pahema/imagenes/lupa.png"))); // NOI18N
+        jButton1.setText("     Buscar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -259,7 +268,11 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -276,7 +289,8 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
@@ -307,12 +321,21 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
 //        }
     }//GEN-LAST:event_btnSincronizarActionPerformed
 
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+
+    }//GEN-LAST:event_formInternalFrameActivated
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        cargarClientes();
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSincronizar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -344,22 +367,14 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
 
     private void cargarClientes() {
         try{
-        ArrayList<Cliente> clientes = (ArrayList<Cliente>) cDao.obtenerClientes();
+        List<Cliente> clientes = cDao.obtenerClientes();
         if(clientes.isEmpty())
             lanzarMensajeAlerta("No se encontraron clientes para cargar. Sincronice los clientes con el Tango.");
         else
-            llenarTabla(clientes);
+            modelo.llenarTabla(clientes);
         }catch(Exception e){
             lanzarMensajeError("Ha ocurrido un error cargando los clientes.");
             System.out.println(e.getMessage());
-        }
-    }
-
-    private void llenarTabla(ArrayList<Cliente> clientes) {
-        for (Cliente c : clientes) {
-            Vector<Object> fila = new Vector<Object>();
-            fila.add(c.getCodCliente());
-            modelo.addRow(fila);
         }
     }
 
@@ -376,5 +391,9 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
     @Override
     public void lanzarMensajeExitoso(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Administrador de Clientes", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void inhabilitarCampo(JTextField campo) {
+        campo.setEditable(false);
     }
 }

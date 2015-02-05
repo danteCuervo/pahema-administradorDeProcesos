@@ -7,23 +7,55 @@
 package ar.com.pahema.entidades;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Dante
  */
+@Entity
+@Table(name = "Llaves")
 public class Llave {
+    @Id
+    @Column(name="NUMERO",nullable = false)
     private String numero;
+    
+    @Transient
     private String tipo;
+    @Transient
     private Date fechaAlta;
+    @Transient
+    @Temporal(TemporalType.DATE)
     private Date fechaVencimiento;
+    @Transient
     private String version;
+    @Transient
     private String distribuidor;
+    @Transient
     private String tipoFacturacion;
+    @Transient
     private String claveZonaCliente;
+    @Transient
     private int cantidadDePuestos;
+    @Transient
     private String tipoTango;
+    
+    @ManyToOne
+    @JoinColumn(name="ID_CLIENTE")
+    private Cliente cliente;
 
+    
+    public Llave(){
+        
+    }
     /**
      * @return the cantidadDePuestos
      */
@@ -162,6 +194,20 @@ public class Llave {
      */
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    /**
+     * @return the cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     
