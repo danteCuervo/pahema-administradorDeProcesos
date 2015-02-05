@@ -7,11 +7,12 @@ package ar.com.pahema.entidades.tiposCliente;
 
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.observerPaquetes.HorasRestantesObserver;
-import ar.com.pahema.entidades.Llave;
-import ar.com.pahema.observerPaquetes.Observado;
 import ar.com.pahema.entidades.Paquete;
+import ar.com.pahema.utils.MailSender;
 import ar.com.pahema.ventanas.DatosComunesClientes;
-import javax.persistence.Entity;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -27,8 +28,14 @@ public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserv
 
     public void enviar() {
         if (this.paquete.getHorasRestantes() <= 2) {
-            System.out.println("funciona bien el observer de cantidad de horaa");
-            //MailSender.enviarMail(c.getPaquete().getHorasRestantes(),c.getPaquete().getCantidadHoras(),c.getEmail());
+            try {
+                if(this.getEmail().trim().equals(""))
+                    throw new RuntimeException("No hay una direccion de mail");
+                MailSender.enviar(this.getEmail());
+            } catch (EmailException ex) {
+                System.out.println(ex.getMessage());
+                
+            }
         }
         
     }

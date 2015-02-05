@@ -24,6 +24,7 @@ public class PruebaObserverPaquetes {
         DatosComunesClientes d = new DatosComunesClientes("razon soci", null, null, null, null, null, null, null, null, llave);
         ClientePaqueteHoras c = new ClientePaqueteHoras(d);
         c.setPaquete(new Paquete(10,2));
+        c.setEmail("dante.gs92@gmail.com");
         a.agregarObservador(c);
         
         System.out.println(c.getPaquete().getHorasRestantes());
