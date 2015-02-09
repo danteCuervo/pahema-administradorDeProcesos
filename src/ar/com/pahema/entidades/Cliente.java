@@ -37,7 +37,6 @@ public abstract class Cliente{
         this.setLocalidad(d.getLocalidad());
         this.setEmail(d.getEmail());
         this.setCuit(d.getCuit());
-        this.setTipoDeSistema(d.getTipoSistema());
         agregarLlave(d.getLlave());
     }
     private int idCliente;
@@ -69,9 +68,6 @@ public abstract class Cliente{
 
 //    @Column(name = "E_MAIL", length = 255)
     private String email;
-
-//    @Column(name = "TIPO_DE_SISTEMA", length = 30)
-    private String tipoDeSistema;
 
 //    @Column(name = "TIPO_CLIENTE", nullable = false, length = 30)
     //private String tipoCliente;
@@ -152,9 +148,9 @@ public abstract class Cliente{
     /**
      * @return the tipoDeSistema
      */
-    public String getTipoDeSistema() {
-        return tipoDeSistema;
-    }
+//    public String getTipoDeSistema() {
+//        return tipoDeSistema;
+//    }
 
     /**
      * @param contacto_1 the contacto_1 to set
@@ -215,9 +211,9 @@ public abstract class Cliente{
     /**
      * @param tipoDeSistema the tipoDeSistema to set
      */
-    public void setTipoDeSistema(String tipoDeSistema) {
-        this.tipoDeSistema = tipoDeSistema;
-    }
+//    public void setTipoDeSistema(String tipoDeSistema) {
+//        this.tipoDeSistema = tipoDeSistema;
+//    }
 
     /**
      * @return the tipoCliente

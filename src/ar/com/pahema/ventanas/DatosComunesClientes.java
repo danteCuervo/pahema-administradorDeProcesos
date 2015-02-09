@@ -21,10 +21,9 @@ public class DatosComunesClientes {
     private String localidad;
     private String email;
     private String cuit;
-    private String tipoSistema;
     private Llave llave;
     
-    public DatosComunesClientes(String razonSocial, String domicilio, String telefono1, String telefono2, String contacto1, String localidad, String email, String cuit, String tipoSistema, Llave llave) {
+    public DatosComunesClientes(String razonSocial, String domicilio, String telefono1, String telefono2, String contacto1, String localidad, String email, String cuit) {
         this.razonSocial = razonSocial;
         this.domicilio = domicilio;
         this.telefono1 = telefono1;
@@ -33,7 +32,17 @@ public class DatosComunesClientes {
         this.localidad = localidad;
         this.email = email;
         this.cuit = cuit;
-        this.tipoSistema = tipoSistema;
+    }
+    
+    public DatosComunesClientes(String razonSocial, String domicilio, String telefono1, String telefono2, String contacto1, String localidad, String email, String cuit, Llave llave) {
+        this.razonSocial = razonSocial;
+        this.domicilio = domicilio;
+        this.telefono1 = telefono1;
+        this.telefono2 = telefono2;
+        this.contacto1 = contacto1;
+        this.localidad = localidad;
+        this.email = email;
+        this.cuit = cuit;
         this.llave = llave;
     }
 
@@ -148,21 +157,6 @@ public class DatosComunesClientes {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
-
-    /**
-     * @return the tipoSistema
-     */
-    public String getTipoSistema() {
-        return tipoSistema;
-    }
-
-    /**
-     * @param tipoSistema the tipoSistema to set
-     */
-    public void setTipoSistema(String tipoSistema) {
-        this.tipoSistema = tipoSistema;
-    }
-
     /**
      * @return the llave
      */

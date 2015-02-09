@@ -21,14 +21,15 @@ import org.hibernate.transform.RootEntityResultTransformer;
  * @author Dante
  */
 public class ClienteDAO {
-
+    
+    private static Cliente cPojo;
     private static Session sesionCRM;
     private static Transaction tx;
     private static final String BASE_CRM = "CRM_PAHEMA_DESARROLLO";
     private static final String BASE_TANGO = "Empresa_Ejemplo";
 
-    public ClienteDAO() {
-
+    public ClienteDAO(Cliente c) {
+        cPojo = c;
     }
 
     public List<Cliente> obtenerClientes() throws Exception {

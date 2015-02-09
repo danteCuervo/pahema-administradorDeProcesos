@@ -14,6 +14,7 @@ import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.entidades.tiposCliente.ClientePotencial;
 import ar.com.pahema.utils.DatosCreacionCliente;
 import ar.com.pahema.utils.Mensaje;
+import java.awt.Frame;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -24,7 +25,7 @@ import javax.swing.JOptionPane;
 public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 
     private Cliente cliente;
-    private static ClienteDAO cDAO = new ClienteDAO();
+    private static ClienteDAO cDAO;
 
     /**
      * Creates new form JD_AltaClientes
@@ -32,8 +33,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     public JD_ClientesAlta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cargarComboTiposDeSistema();
         cargarComboTiposDeCliente();
+        cmbTipoCliente.setSelectedIndex(-1);
     }
 
     /**
@@ -49,7 +50,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cmbTipoSistema = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         txtTel1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -57,7 +57,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         jLabel9 = new javax.swing.JLabel();
         txtTel2 = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
         txtDomicilio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -66,11 +65,10 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cmbTipoCliente = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        txtLlave = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnAsociarLlave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,8 +84,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 
         jLabel9.setText("Telefono 2");
 
-        jLabel10.setText("Tipo de sistema");
-
         jLabel4.setText("Domicilio");
 
         txtCuit.addActionListener(new java.awt.event.ActionListener() {
@@ -100,14 +96,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 
         jLabel11.setText("Tipo de cliente");
 
-        jLabel2.setText("Llave");
-
-        try {
-            txtLlave.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######/###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -119,26 +107,22 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel11))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbTipoCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtLocalidad)
                     .addComponent(txtTel1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                     .addComponent(txtEmail)
-                    .addComponent(txtRazonSocial)
-                    .addComponent(txtLlave))
+                    .addComponent(txtRazonSocial))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbTipoSistema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDomicilio)
                     .addComponent(txtTel2)
                     .addComponent(txtContacto1)
@@ -184,16 +168,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtContacto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(cmbTipoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLlave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(14, Short.MAX_VALUE))
+                            .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnLimpiar.setText("Limpiar Registro");
@@ -210,6 +186,13 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
             }
         });
 
+        btnAsociarLlave.setText("Asociar Llave");
+        btnAsociarLlave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsociarLlaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -219,7 +202,9 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLimpiar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAsociarLlave)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +212,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
-                    .addComponent(btnLimpiar))
+                    .addComponent(btnLimpiar)
+                    .addComponent(btnAsociarLlave))
                 .addContainerGap())
         );
 
@@ -266,17 +252,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validarCampos()) {
-//           cliente = new Cliente(txtRazonSocial.getText().trim(),
-//                    txtDomicilio.getText().trim(),
-//                    txtTel1.getText().trim(),
-//                    txtTel2.getText().trim(),
-//                    txtContacto1.getText().trim(),
-//                    txtLocalidad.getText().trim(),
-//                    txtEmail.getText().trim(),
-//                    txtCuit.getText().trim(),
-//                    cmbTipoSistema.getSelectedItem().toString().trim(),
-//                    (Llave) txtLlave.getValue());
-//
             DatosComunesClientes datos = new DatosComunesClientes(
                     txtRazonSocial.getText().trim(),
                     txtDomicilio.getText().trim(),
@@ -285,9 +260,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     txtContacto1.getText().trim(),
                     txtLocalidad.getText().trim(),
                     txtEmail.getText().trim(),
-                    txtCuit.getText().trim(),
-                    cmbTipoSistema.getSelectedItem().toString().trim(),
-                    (Llave) txtLlave.getValue());
+                    txtCuit.getText().trim());
                     
             switch (cmbTipoCliente.getSelectedItem().toString()) {
                 case "Abonado":
@@ -303,6 +276,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     cliente = new ClientePotencial(datos);
                     break;
             }
+            cDAO = new ClienteDAO(cliente);
 //            try {
 //                cDAO.guardarCliente(c);
 //                lanzarMensajeExitoso("El cliente: "+c.getRazonSocial()+" se ha guardado correctamente.");
@@ -315,6 +289,14 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 //            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnAsociarLlaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarLlaveActionPerformed
+        JD_LlaveAsociar llaves;
+        if(!JD_LlaveAsociar.abierta && validarCampos()){
+             llaves = new JD_LlaveAsociar(new Frame(),true,cliente);
+             llaves.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAsociarLlaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,14 +341,12 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsociarLlave;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox cmbTipoCliente;
-    private javax.swing.JComboBox cmbTipoSistema;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -380,7 +360,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtDomicilio;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JFormattedTextField txtLlave;
     private javax.swing.JTextField txtLocalidad;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTel1;
@@ -397,17 +376,16 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         txtTel1.setText("");
         txtTel2.setText("");
         cmbTipoCliente.setSelectedIndex(-1);
-        cmbTipoSistema.setSelectedIndex(-1);
     }
 
-    private void cargarComboTiposDeSistema() {
-        cmbTipoSistema.addItem("CRM GO");
-        cmbTipoSistema.addItem("TANGO PUNTO DE VENTA");
-        cmbTipoSistema.addItem("TANGO GESTION");
-        cmbTipoSistema.addItem("TANGO RESTO");
-        cmbTipoSistema.addItem("TANGO ESTUDIOS CONTABLES");
-        cmbTipoSistema.addItem("CAPATAZ");
-    }
+//    private void cargarComboTiposDeSistema() {
+//        cmbTipoSistema.addItem("CRM GO");
+//        cmbTipoSistema.addItem("TANGO PUNTO DE VENTA");
+//        cmbTipoSistema.addItem("TANGO GESTION");
+//        cmbTipoSistema.addItem("TANGO RESTO");
+//        cmbTipoSistema.addItem("TANGO ESTUDIOS CONTABLES");
+//        cmbTipoSistema.addItem("CAPATAZ");
+//    }
 
     private void cargarComboTiposDeCliente() {
         cmbTipoCliente.addItem("Abonado");
@@ -426,11 +404,6 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         if (cmbTipoCliente.getSelectedIndex() == -1) {
             lanzarMensajeAlerta("Debe asignarle un tipo al cliente.");
             cmbTipoCliente.requestFocus();
-            return false;
-        }
-        if (cmbTipoSistema.getSelectedIndex() == -1) {
-            lanzarMensajeAlerta("Debe asignarle un tipo de sistema al cliente.");
-            cmbTipoSistema.requestFocus();
             return false;
         }
         return true;

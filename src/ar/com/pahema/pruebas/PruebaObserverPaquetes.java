@@ -21,7 +21,7 @@ public class PruebaObserverPaquetes {
         Llave llave = new Llave();
         llave.setTipo("virtual");
         AlarmaHorasPaquete a = new AlarmaHorasPaquete();
-        DatosComunesClientes d = new DatosComunesClientes("razon soci", null, null, null, null, null, null, null, null, llave);
+        DatosComunesClientes d = new DatosComunesClientes("razon soci", null, null, null, null, null, null, null, llave);
         ClientePaqueteHoras c = new ClientePaqueteHoras(d);
         c.setPaquete(new Paquete(10,2));
         c.setEmail("dante.gs92@gmail.com");

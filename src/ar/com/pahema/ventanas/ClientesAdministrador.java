@@ -44,7 +44,6 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
         inhabilitarCampo(txtTipoDeLlave);
         inhabilitarCampo(txtTipoDeSistema);
         btnSincronizar.setVisible(false);
-        cDao = new ClienteDAO();
     }
 
     /**
@@ -327,7 +326,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        cargarClientes();
+        //cargarClientes();
     }//GEN-LAST:event_formInternalFrameOpened
 
 

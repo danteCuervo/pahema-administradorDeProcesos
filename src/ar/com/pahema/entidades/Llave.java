@@ -21,8 +21,8 @@ import javax.persistence.Transient;
  *
  * @author Dante
  */
-@Entity
-@Table(name = "Llaves")
+//@Entity
+//@Table(name = "Llaves")
 public class Llave {
     @Id
     @Column(name="NUMERO",nullable = false)
@@ -46,7 +46,7 @@ public class Llave {
     @Transient
     private int cantidadDePuestos;
     @Transient
-    private String tipoTango;
+    private String tipoSistema;
     
     @ManyToOne
     @JoinColumn(name="ID_CLIENTE")
@@ -115,8 +115,8 @@ public class Llave {
     /**
      * @return the tipoTango
      */
-    public String getTipoTango() {
-        return tipoTango;
+    public String getTipoSistema() {
+        return tipoSistema;
     }
 
     /**
@@ -185,8 +185,8 @@ public class Llave {
     /**
      * @param tipoTango the tipoTango to set
      */
-    public void setTipoTango(String tipoTango) {
-        this.tipoTango = tipoTango;
+    public void setTipoSistema(String tipoSistema) {
+        this.tipoSistema = tipoSistema;
     }
 
     /**
