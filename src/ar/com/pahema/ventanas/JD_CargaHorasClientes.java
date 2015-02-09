@@ -6,7 +6,9 @@
 package ar.com.pahema.ventanas;
 
 import ar.com.pahema.entidades.Cliente;
+import ar.com.pahema.entidades.Paquete;
 import ar.com.pahema.entidades.dao.ClienteDAO;
+import ar.com.pahema.entidades.dao.PaqueteDAO;
 import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.utils.Mensaje;
 import java.util.List;
@@ -22,6 +24,8 @@ public class JD_CargaHorasClientes extends javax.swing.JDialog implements Mensaj
 
     public static boolean abierta;
     private ClientePaqueteHoras cliente;
+    private PaqueteDAO pDAO;
+    private Paquete paqueteCLON;
     private static ClienteDAO cDAO;
 
     /**
@@ -119,6 +123,11 @@ public class JD_CargaHorasClientes extends javax.swing.JDialog implements Mensaj
         });
 
         btnDeshacer.setText("Deshacer");
+        btnDeshacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeshacerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,6 +189,7 @@ public class JD_CargaHorasClientes extends javax.swing.JDialog implements Mensaj
             if (validar(cliente)) {
                 int rta = JOptionPane.showConfirmDialog(this, "Está seguro que desea consumir: " + txtHoras.getText() + "horas del paquete del cliente: " + cliente.getRazonSocial() + "?", "Carga de horas", JOptionPane.YES_NO_OPTION);
                 if (rta == JOptionPane.YES_OPTION) {
+                    paqueteCLON = (Paquete) cliente.getPaquete().clone();
                     cliente.getPaquete().consumir(Double.parseDouble(txtHoras.getText().trim()));
                     lanzarMensajeExitoso("Se han consumido: "+txtHoras.getText()+" horas del paquete.");
                 }
@@ -203,6 +213,11 @@ public class JD_CargaHorasClientes extends javax.swing.JDialog implements Mensaj
             evt.consume();  // ignorar el evento de teclado
         }
     }//GEN-LAST:event_txtHorasKeyTyped
+
+    private void btnDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshacerActionPerformed
+        deshacerOperacion();
+        lanzarMensajeExitoso("Se ha deshecho la operación. Le quedan: "+(int) paqueteCLON.getHorasRestantes()+" horas al paquete");
+    }//GEN-LAST:event_btnDeshacerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,6 +342,16 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private void cargarCombo(List<ClientePaqueteHoras> clientes) {
         for (ClientePaqueteHoras c : clientes) {
             cmbClientes.addItem(c.getIdCliente() + " - " + c.getRazonSocial());
+        }
+    }
+
+    private void deshacerOperacion() {
+        try {
+            pDAO = new PaqueteDAO();
+            pDAO.actualizarPaquete(paqueteCLON);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            lanzarMensajeError("No se pudo deshacer la operación.");
         }
     }
 }

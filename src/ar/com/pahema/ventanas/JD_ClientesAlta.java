@@ -518,8 +518,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
             return false;
         }        
         if (txtEmail.getText().trim().equals("") && cmbTipoCliente.getSelectedItem().equals("Paquete horas")) {
-            lanzarMensajeAlerta("Debe asignarle un aviso de horas al paquete.");
-            txtHorasAviso.requestFocus();
+            lanzarMensajeAlerta("Debe asignarle un mail al cliente.");
+            txtEmail.requestFocus();
             return false;
         }
         return true;

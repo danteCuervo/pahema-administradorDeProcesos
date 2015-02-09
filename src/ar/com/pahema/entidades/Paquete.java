@@ -28,7 +28,7 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "Paquetes")
-public class Paquete{
+public class Paquete implements Cloneable{
     private static PaqueteDAO pDAO;
     @Id
     @Column(name = "ID_Paquete",unique = true,nullable = false)
@@ -64,6 +64,17 @@ public class Paquete{
             alarma.agregarObservador(cliente);
             alarma.notificarATodos();
         }
+    }
+    
+    
+    public Object clone() {
+        Object clone = null;
+        try {
+            clone = super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+        return clone;
     }
     
 

@@ -111,6 +111,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 mnuSalirMouseClicked(evt);
             }
         });
+        mnuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSalirActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(mnuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -142,7 +147,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void mnuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSalirMouseClicked
-
         sesionCRM.close();
         sesionTango.close();
         System.out.println("sesiones cerradas!");
@@ -168,6 +172,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
            j.setVisible(true);
        }
     }//GEN-LAST:event_mnuCargaHorasActionPerformed
+
+    private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
+        sesionCRM.close();
+        sesionTango.close();
+        System.out.println("sesiones cerradas!");
+        this.dispose();
+    }//GEN-LAST:event_mnuSalirActionPerformed
 
     /**
      * @param args the command line arguments

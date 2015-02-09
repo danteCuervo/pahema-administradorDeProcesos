@@ -44,6 +44,7 @@ public class ClientesAdministrador extends javax.swing.JInternalFrame implements
         inhabilitarCampo(txtTipoDeLlave);
         inhabilitarCampo(txtTipoDeSistema);
         btnSincronizar.setVisible(false);
+        cDao = new ClienteDAO();
     }
 
     /**

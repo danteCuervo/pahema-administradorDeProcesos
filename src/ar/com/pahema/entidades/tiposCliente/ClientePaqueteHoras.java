@@ -30,8 +30,8 @@ import org.apache.commons.mail.EmailException;
 @Entity
 @Table(name = "Clientes")
 @DiscriminatorValue("PAHS")
-public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver {
-    
+public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver{
+
     @OneToOne(cascade = CascadeType.ALL)
     private Paquete paquete;
 
@@ -53,7 +53,7 @@ public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserv
                 if (this.getEmail().trim().equals("")) {
                     throw new RuntimeException("No hay una direccion de mail");
                 }
-                MailSender.enviar(this.getEmail(),this.paquete);
+                MailSender.enviar(this.getEmail(), this.paquete);
             } catch (EmailException ex) {
                 System.out.println(ex.getMessage());
 
