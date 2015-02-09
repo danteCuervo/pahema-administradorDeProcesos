@@ -277,16 +277,16 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     break;
             }
             cDAO = new ClienteDAO(cliente);
-//            try {
-//                cDAO.guardarCliente(c);
-//                lanzarMensajeExitoso("El cliente: "+c.getRazonSocial()+" se ha guardado correctamente.");
-//                borrarCampos();
-//                ClientesAdministrador.modelo.cargarCliente(c);
-//                this.dispose();
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage());
-//                lanzarMensajeError("No se ha podido guardar al cliente: "+c.getIdCliente() + " " + c.getRazonSocial());
-//            }
+            try {
+                cDAO.guardarCliente(cliente);
+                lanzarMensajeExitoso("El cliente: "+cliente.getRazonSocial()+" se ha guardado correctamente.");
+                borrarCampos();
+                ClientesAdministrador.modelo.cargarCliente(cliente);
+                this.dispose();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                lanzarMensajeError("No se ha podido guardar al cliente: "+cliente.getIdCliente() + " " + cliente.getRazonSocial());
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

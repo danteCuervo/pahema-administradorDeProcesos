@@ -15,15 +15,22 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 /**
  *
  * @author Dante
  */
+@Entity
+@Table(name="PERSON")
+@DiscriminatorValue("POTL")
 public class ClientePotencial extends Cliente{
-
+    
+    public ClientePotencial(){
+        
+    }
+    
     public ClientePotencial(DatosComunesClientes d) {
         super(d);
     }
-    
 }

@@ -10,17 +10,31 @@ import ar.com.pahema.observerPaquetes.HorasRestantesObserver;
 import ar.com.pahema.entidades.Paquete;
 import ar.com.pahema.utils.MailSender;
 import ar.com.pahema.ventanas.DatosComunesClientes;
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import org.apache.commons.mail.EmailException;
 
 /**
  *
  * @author Dante
  */
-public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver {
-
+@Entity
+@Table(name="Clientes")
+@DiscriminatorValue("PAHS")
+public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver{
+    
+    @OneToOne
     private Paquete paquete;
+    
+    public ClientePaqueteHoras(){
+        
+    }
 
     public ClientePaqueteHoras(DatosComunesClientes datos) {
         super(datos);

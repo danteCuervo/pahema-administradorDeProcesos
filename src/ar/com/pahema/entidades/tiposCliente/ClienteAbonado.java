@@ -14,16 +14,22 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Dante
  */
 
-//@Entity
-//@DiscriminatorValue(value="ABO")
+@Entity
+@Table(name="Clientes")
+@DiscriminatorValue("ABOO")
 public class ClienteAbonado extends Cliente{
-       
+    
+    public ClienteAbonado(){
+        
+    }
+    
     public ClienteAbonado(DatosComunesClientes datos){
         super(datos);
     }    

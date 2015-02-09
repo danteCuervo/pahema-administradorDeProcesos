@@ -48,7 +48,7 @@ public class ModeloTablaClientes extends DefaultTableModel {
         fila.add(c.getTelefono_2());
         fila.add(c.getContacto_1());
         fila.add(c.getCuit());
-        fila.add(c.getTipoCliente());
+        //fila.add(c.getTipoCliente());
         //fila.add(c.getTipoDeSistema());
         this.addRow(fila);
     }

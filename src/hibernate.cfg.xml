@@ -7,16 +7,14 @@
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">_556_2005</property>
     <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     
-<!--    <mapping class="ar.com.pahema.entidades.Cliente"/>
-    <mapping class="ar.com.pahema.entidades.Llave"/>
-    <mapping class="ar.com.pahema.entidades.Paquete"/>
-    <mapping class="ar.com.pahema.entidades.TipoPaquete"/>-->
-
-<!--    <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteAbonado"/>
+    <mapping class="ar.com.pahema.entidades.Cliente"/>
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteAbonado"/>
     <mapping class="ar.com.pahema.entidades.tiposCliente.ClienteMouse"/>
     <mapping class="ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras"/>
-    <mapping class="ar.com.pahema.entidades.tiposCliente.ClientePotencial"/>-->
+    <mapping class="ar.com.pahema.entidades.tiposCliente.ClientePotencial"/>
+    <mapping class="ar.com.pahema.entidades.Paquete"/>
+
   </session-factory>
 </hibernate-configuration>

@@ -7,16 +7,30 @@
 package ar.com.pahema.entidades;
 
 import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Dante
  */
+@Entity
+@Table(name = "Paquetes")
 public class Paquete {
     
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_Paquete")
     private int id;
+    @Transient
     private double cantidadHoras;
+    @Transient
     private double horasRestantes;
+    @Transient
     private double avisoALaHora;
     
     public Paquete(double cantidadHoras,double aviso){
