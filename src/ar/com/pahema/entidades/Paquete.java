@@ -6,6 +6,8 @@
 
 package ar.com.pahema.entidades;
 
+import ar.com.pahema.entidades.dao.PaqueteDAO;
+import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -25,8 +28,8 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name = "Paquetes")
-public class Paquete {
-    
+public class Paquete{
+    private static PaqueteDAO pDAO;
     @Id
     @Column(name = "ID_Paquete",unique = true,nullable = false)
     @GeneratedValue
@@ -40,17 +43,29 @@ public class Paquete {
     
     @OneToOne
     @PrimaryKeyJoinColumn
-    private Cliente cliente;
+    private ClientePaqueteHoras cliente;
     
     public Paquete(){
-        
+        pDAO = new PaqueteDAO();
     }
     
     public Paquete(double cantidadHoras,double aviso){
         this.avisoALaHora = aviso;
         this.cantidadHoras = cantidadHoras;
         this.horasRestantes = cantidadHoras;
+        pDAO = new PaqueteDAO();
     }
+    
+    public void consumir(double horasAConsumir) {
+        this.setHorasRestantes(horasRestantes - horasAConsumir);
+        pDAO.actualizarPaquete(this);
+        if(this.horasRestantes <= this.getAvisoALaHora()){
+            AlarmaHorasPaquete alarma = new AlarmaHorasPaquete();
+            alarma.agregarObservador(cliente);
+            alarma.notificarATodos();
+        }
+    }
+    
 
     /**
      * @return the id
@@ -90,17 +105,9 @@ public class Paquete {
     /**
      * @param horasRestantes the horasRestantes to set
      */
+    @Transactional
     public void setHorasRestantes(double horasRestantes) {
         this.horasRestantes = horasRestantes;
-    }
-
-    
-    public void consumir(double horasAConsumir) {
-        this.setHorasRestantes(horasRestantes - horasAConsumir);
-        if(this.horasRestantes <= this.getAvisoALaHora()){
-            AlarmaHorasPaquete alarma = new AlarmaHorasPaquete();
-            alarma.notificarATodos();
-        }
     }
 
     /**
@@ -115,6 +122,5 @@ public class Paquete {
      */
     public void setAvisoALaHora(double avisoALaHora) {
         this.avisoALaHora = avisoALaHora;
-    }
-      
+    }      
 }

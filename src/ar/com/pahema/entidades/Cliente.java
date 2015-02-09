@@ -5,6 +5,7 @@
  */
 package ar.com.pahema.entidades;
 
+import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
 import ar.com.pahema.ventanas.DatosComunesClientes;
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +61,7 @@ public abstract class Cliente{
     @Id
     @GeneratedValue
     @Column(name = "ID_CLIENTE")
-    private Long idCliente;
+    private Integer idCliente;
 
     @Column(name = "RAZON_SOCIAL", length = 60, nullable = false)
     private String razonSocial;
@@ -103,14 +104,14 @@ public abstract class Cliente{
     /**
      * @return the idCliente
      */
-    public Long getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
     /**
      * @param idCliente the idCliente to set
      */
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

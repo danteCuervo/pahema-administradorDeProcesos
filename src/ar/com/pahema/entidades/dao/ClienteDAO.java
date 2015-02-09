@@ -7,10 +7,12 @@ package ar.com.pahema.entidades.dao;
 
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.entidades.Paquete;
+import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.hibernate.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javassist.bytecode.stackmap.BasicBlock;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -70,6 +72,22 @@ public class ClienteDAO {
         }
         return clientesTango;
     }
+    
+    
+    public List<ClientePaqueteHoras> obtenerClientesPaqueteHoras() throws Exception{
+        List<ClientePaqueteHoras> clientes = new ArrayList<ClientePaqueteHoras>();
+        try {
+            iniciaOperacion();
+            clientes = sesionCRM.createQuery("from ClientePaqueteHoras c").list();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            sesionCRM.close();
+        }
+        return clientes;
+    }
+    
 
     public void sincronizarClientesTangoConClientesCRM(List<Cliente> clientesTango) throws Exception {
         try {
@@ -104,8 +122,26 @@ public class ClienteDAO {
         }
     }
 
+
+    public ClientePaqueteHoras obtenerCliente(Integer id) throws Exception{
+        ClientePaqueteHoras c = null;
+        try {
+            iniciaOperacion();
+            c = (ClientePaqueteHoras) sesionCRM.get(ClientePaqueteHoras.class, id);
+        } catch (Exception he) {
+            System.out.println(he.getMessage());
+            throw he;
+        } finally {
+            sesionCRM.close();
+        }
+
+        return c;
+    }
+    
+    
     private static void iniciaOperacion() {
         sesionCRM = HibernateUtil.currentSession();
         //sesionCRM = HibernateUtil.currentSession("Tango");
     }
+
 }

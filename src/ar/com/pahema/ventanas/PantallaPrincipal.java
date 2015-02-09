@@ -6,6 +6,7 @@
 package ar.com.pahema.ventanas;
 
 import ar.com.pahema.hibernate.HibernateUtil;
+import java.awt.Frame;
 import org.hibernate.Session;
 
 /**
@@ -42,6 +43,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         mnuClientes = new javax.swing.JMenu();
+        mnuCargaHoras = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuSalir = new javax.swing.JMenu();
 
@@ -81,6 +83,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 mnuClientesMouseClicked(evt);
             }
         });
+
+        mnuCargaHoras.setText("Carga de horas");
+        mnuCargaHoras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuCargaHorasMouseClicked(evt);
+            }
+        });
+        mnuCargaHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCargaHorasActionPerformed(evt);
+            }
+        });
+        mnuClientes.add(mnuCargaHoras);
+
         jMenu3.add(mnuClientes);
 
         jMenuItem1.setText("Paquetes");
@@ -139,6 +155,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void mnuCargaHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuCargaHorasMouseClicked
+       if(!JD_CargaHorasClientes.abierta){
+           JD_CargaHorasClientes j = new JD_CargaHorasClientes(new Frame(),true);
+           j.setVisible(true);
+       }
+    }//GEN-LAST:event_mnuCargaHorasMouseClicked
+
+    private void mnuCargaHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCargaHorasActionPerformed
+       if(!JD_CargaHorasClientes.abierta){
+           JD_CargaHorasClientes j = new JD_CargaHorasClientes(new Frame(),true);
+           j.setVisible(true);
+       }
+    }//GEN-LAST:event_mnuCargaHorasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,6 +210,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem mnuCargaHoras;
     private javax.swing.JMenu mnuClientes;
     private javax.swing.JMenu mnuSalir;
     // End of variables declaration//GEN-END:variables

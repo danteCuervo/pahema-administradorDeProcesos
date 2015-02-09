@@ -42,4 +42,19 @@ public class PaqueteDAO {
     private static void iniciaOperacion() {
         sesionCRM = HibernateUtil.currentSession();
     }
+
+    public void actualizarPaquete(Paquete p) {
+        try {
+            iniciaOperacion();
+            tx = sesionCRM.beginTransaction();
+            sesionCRM.saveOrUpdate(p);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            sesionCRM.close();
+        }
+    }
 }

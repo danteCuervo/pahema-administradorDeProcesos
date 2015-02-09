@@ -8,6 +8,7 @@ package ar.com.pahema.entidades.tiposCliente;
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.observerPaquetes.HorasRestantesObserver;
 import ar.com.pahema.entidades.Paquete;
+import ar.com.pahema.observerPaquetes.AlarmaHorasPaquete;
 import ar.com.pahema.utils.MailSender;
 import ar.com.pahema.ventanas.DatosComunesClientes;
 import java.beans.Transient;
@@ -30,12 +31,11 @@ import org.apache.commons.mail.EmailException;
 @Table(name = "Clientes")
 @DiscriminatorValue("PAHS")
 public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver {
-
+    
     @OneToOne(cascade = CascadeType.ALL)
     private Paquete paquete;
 
     public ClientePaqueteHoras() {
-
     }
 
     public ClientePaqueteHoras(DatosComunesClientes datos) {
@@ -48,12 +48,12 @@ public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserv
     }
 
     public void enviar() {
-        if (this.paquete.getHorasRestantes() <= 2) {
+        if (this.paquete.getHorasRestantes() <= this.paquete.getAvisoALaHora()) {
             try {
                 if (this.getEmail().trim().equals("")) {
                     throw new RuntimeException("No hay una direccion de mail");
                 }
-                MailSender.enviar(this.getEmail());
+                MailSender.enviar(this.getEmail(),this.paquete);
             } catch (EmailException ex) {
                 System.out.println(ex.getMessage());
 
