@@ -11,8 +11,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
  *
@@ -23,15 +28,23 @@ import javax.persistence.Transient;
 public class Paquete {
     
     @Id
+    @Column(name = "ID_Paquete",unique = true,nullable = false)
     @GeneratedValue
-    @Column(name = "ID_Paquete")
-    private int id;
-    @Transient
+    private int idPaquete;
+    @Column(name = "Cant_Horas",length = 2)
     private double cantidadHoras;
-    @Transient
+    @Column(name = "Horas_Restantes",length = 2)
     private double horasRestantes;
-    @Transient
+    @Column(name = "Aviso",length = 2)
     private double avisoALaHora;
+    
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Cliente cliente;
+    
+    public Paquete(){
+        
+    }
     
     public Paquete(double cantidadHoras,double aviso){
         this.avisoALaHora = aviso;
@@ -43,14 +56,14 @@ public class Paquete {
      * @return the id
      */
     public int getId() {
-        return id;
+        return idPaquete;
     }
 
     /**
      * @param id the id to set
      */
     public void setId(int id) {
-        this.id = id;
+        this.idPaquete = id;
     }
 
     /**

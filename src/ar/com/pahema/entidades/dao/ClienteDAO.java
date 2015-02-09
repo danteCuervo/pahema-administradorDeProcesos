@@ -6,6 +6,7 @@
 package ar.com.pahema.entidades.dao;
 
 import ar.com.pahema.entidades.Cliente;
+import ar.com.pahema.entidades.Paquete;
 import ar.com.pahema.hibernate.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,14 +23,13 @@ import org.hibernate.transform.RootEntityResultTransformer;
  */
 public class ClienteDAO {
     
-    private static Cliente cPojo;
     private static Session sesionCRM;
     private static Transaction tx;
     private static final String BASE_CRM = "CRM_PAHEMA_DESARROLLO";
     private static final String BASE_TANGO = "Empresa_Ejemplo";
 
-    public ClienteDAO(Cliente c) {
-        cPojo = c;
+    public ClienteDAO() {
+
     }
 
     public List<Cliente> obtenerClientes() throws Exception {
@@ -89,11 +89,11 @@ public class ClienteDAO {
         }
     }
 
-    public void guardarCliente(Cliente cliente) throws Exception {
+    public void guardarCliente(Cliente c) throws Exception {
         try {
             iniciaOperacion();
             tx = sesionCRM.beginTransaction();
-            sesionCRM.saveOrUpdate(cliente);
+            sesionCRM.saveOrUpdate(c);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

@@ -7,15 +7,20 @@ package ar.com.pahema.ventanas;
 
 import ar.com.pahema.entidades.Cliente;
 import ar.com.pahema.entidades.Llave;
+import ar.com.pahema.entidades.Paquete;
 import ar.com.pahema.entidades.dao.ClienteDAO;
+import ar.com.pahema.entidades.dao.PaqueteDAO;
 import ar.com.pahema.entidades.tiposCliente.ClienteAbonado;
 import ar.com.pahema.entidades.tiposCliente.ClienteMouse;
 import ar.com.pahema.entidades.tiposCliente.ClientePaqueteHoras;
 import ar.com.pahema.entidades.tiposCliente.ClientePotencial;
 import ar.com.pahema.utils.DatosCreacionCliente;
+import ar.com.pahema.ventanas.ClientesAdministrador;
 import ar.com.pahema.utils.Mensaje;
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +30,8 @@ import javax.swing.JOptionPane;
 public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
 
     private Cliente cliente;
-    private static ClienteDAO cDAO;
+    private Paquete paquete;
+    private static ClienteDAO cDAO = new ClienteDAO();
 
     /**
      * Creates new form JD_AltaClientes
@@ -35,6 +41,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         initComponents();
         cargarComboTiposDeCliente();
         cmbTipoCliente.setSelectedIndex(-1);
+        txtHorasPaquete.setEditable(false);
+        txtHorasAviso.setEditable(false);
     }
 
     /**
@@ -65,6 +73,10 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cmbTipoCliente = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        txtHorasPaquete = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtHorasAviso = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -91,10 +103,42 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                 txtCuitActionPerformed(evt);
             }
         });
+        txtCuit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuitKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Telefono 1");
 
         jLabel11.setText("Tipo de cliente");
+
+        cmbTipoCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbTipoClienteItemStateChanged(evt);
+            }
+        });
+        cmbTipoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Horas del paquete");
+
+        txtHorasPaquete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasPaqueteKeyTyped(evt);
+            }
+        });
+
+        jLabel10.setText("Aviso");
+
+        txtHorasAviso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasAvisoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,18 +161,31 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     .addComponent(txtRazonSocial))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel1))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDomicilio)
-                    .addComponent(txtTel2)
-                    .addComponent(txtContacto1)
-                    .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtHorasPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtHorasAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel1))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDomicilio)
+                            .addComponent(txtTel2)
+                            .addComponent(txtContacto1)
+                            .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtHorasAviso, txtHorasPaquete});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -147,11 +204,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                             .addComponent(jLabel8)
                             .addComponent(txtTel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -169,8 +222,18 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                             .addComponent(jLabel1)
                             .addComponent(txtContacto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel11)
+                    .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtHorasPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtHorasAviso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtHorasAviso, txtHorasPaquete});
 
         btnLimpiar.setText("Limpiar Registro");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -223,10 +286,11 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(318, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +325,7 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     txtLocalidad.getText().trim(),
                     txtEmail.getText().trim(),
                     txtCuit.getText().trim());
-                    
+
             switch (cmbTipoCliente.getSelectedItem().toString()) {
                 case "Abonado":
                     cliente = new ClienteAbonado(datos);
@@ -270,33 +334,75 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
                     cliente = new ClienteMouse(datos);
                     break;
                 case "Paquete horas":
-                    cliente = new ClientePaqueteHoras(datos);
+                    paquete = new Paquete(Double.parseDouble(txtHorasPaquete.getText()), Double.parseDouble(txtHorasAviso.getText()));
+                    cliente = new ClientePaqueteHoras(datos, paquete);
                     break;
                 case "Potencial":
                     cliente = new ClientePotencial(datos);
                     break;
             }
-            cDAO = new ClienteDAO(cliente);
             try {
-                cDAO.guardarCliente(cliente);
-                lanzarMensajeExitoso("El cliente: "+cliente.getRazonSocial()+" se ha guardado correctamente.");
-                borrarCampos();
-                ClientesAdministrador.modelo.cargarCliente(cliente);
-                this.dispose();
+                guardarCliente(cliente);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-                lanzarMensajeError("No se ha podido guardar al cliente: "+cliente.getIdCliente() + " " + cliente.getRazonSocial());
+                lanzarMensajeError("No se ha podido guardar al cliente: " + cliente.getIdCliente() + " " + cliente.getRazonSocial());
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAsociarLlaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarLlaveActionPerformed
         JD_LlaveAsociar llaves;
-        if(!JD_LlaveAsociar.abierta && validarCampos()){
-             llaves = new JD_LlaveAsociar(new Frame(),true,cliente);
-             llaves.setVisible(true);
+        if (!JD_LlaveAsociar.abierta && validarCampos()) {
+            llaves = new JD_LlaveAsociar(new Frame(), true, cliente);
+            llaves.setVisible(true);
         }
     }//GEN-LAST:event_btnAsociarLlaveActionPerformed
+
+    private void cmbTipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoClienteActionPerformed
+
+    }//GEN-LAST:event_cmbTipoClienteActionPerformed
+
+    private void cmbTipoClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoClienteItemStateChanged
+        if (evt.getItem() == "Paquete horas") {
+            String seleccionado = (String) cmbTipoCliente.getSelectedItem();
+            if (seleccionado.equalsIgnoreCase("Paquete horas")) {
+                txtHorasPaquete.setEditable(true);
+                txtHorasAviso.setEditable(true);
+            } else {
+                txtHorasPaquete.setText("");
+                txtHorasPaquete.setEditable(false);
+                txtHorasAviso.setText("");
+                txtHorasAviso.setEditable(false);
+            }
+        }
+    }//GEN-LAST:event_cmbTipoClienteItemStateChanged
+
+    private void txtHorasPaqueteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasPaqueteKeyTyped
+        char caracter = evt.getKeyChar(); // Verificar si la tecla pulsada no es un digito
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_txtHorasPaqueteKeyTyped
+
+    private void txtHorasAvisoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasAvisoKeyTyped
+        char caracter = evt.getKeyChar(); // Verificar si la tecla pulsada no es un digito
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_txtHorasAvisoKeyTyped
+
+    private void txtCuitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuitKeyTyped
+        char caracter = evt.getKeyChar(); // Verificar si la tecla pulsada no es un digito
+        if (((caracter < '0')
+                || (caracter > '9'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+            evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_txtCuitKeyTyped
 
     /**
      * @param args the command line arguments
@@ -346,7 +452,9 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox cmbTipoCliente;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -360,6 +468,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtDomicilio;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtHorasAviso;
+    private javax.swing.JTextField txtHorasPaquete;
     private javax.swing.JTextField txtLocalidad;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtTel1;
@@ -375,17 +485,8 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
         txtRazonSocial.setText("");
         txtTel1.setText("");
         txtTel2.setText("");
-        cmbTipoCliente.setSelectedIndex(-1);
+        //cmbTipoCliente.setSelectedIndex(-1);
     }
-
-//    private void cargarComboTiposDeSistema() {
-//        cmbTipoSistema.addItem("CRM GO");
-//        cmbTipoSistema.addItem("TANGO PUNTO DE VENTA");
-//        cmbTipoSistema.addItem("TANGO GESTION");
-//        cmbTipoSistema.addItem("TANGO RESTO");
-//        cmbTipoSistema.addItem("TANGO ESTUDIOS CONTABLES");
-//        cmbTipoSistema.addItem("CAPATAZ");
-//    }
 
     private void cargarComboTiposDeCliente() {
         cmbTipoCliente.addItem("Abonado");
@@ -406,6 +507,16 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
             cmbTipoCliente.requestFocus();
             return false;
         }
+        if (txtHorasPaquete.getText().trim().equals("") && cmbTipoCliente.getSelectedItem().equals("Paquete horas")) {
+            lanzarMensajeAlerta("Debe asignarle cantidad de horas al paquete.");
+            txtHorasPaquete.requestFocus();
+            return false;
+        }
+        if (txtHorasAviso.getText().trim().equals("") && cmbTipoCliente.getSelectedItem().equals("Paquete horas")) {
+            lanzarMensajeAlerta("Debe asignarle un aviso de horas al paquete.");
+            txtHorasAviso.requestFocus();
+            return false;
+        }
         return true;
     }
 
@@ -422,5 +533,17 @@ public class JD_ClientesAlta extends javax.swing.JDialog implements Mensaje {
     @Override
     public void lanzarMensajeExitoso(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Alta de Clientes", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void guardarCliente(Cliente cliente) throws Exception {
+        cDAO.guardarCliente(cliente);
+        borrarCampos();
+        ClientesAdministrador.modelo.cargarCliente(cliente);
+        lanzarMensajeExitoso("El cliente: " + cliente.getRazonSocial() + " se ha guardado correctamente.");
+        this.dispose();
+    }
+
+    private void validarFormatoNumerico(KeyEvent evt) {
+
     }
 }

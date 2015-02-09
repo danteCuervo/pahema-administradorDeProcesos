@@ -14,9 +14,11 @@ import java.beans.Transient;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.apache.commons.mail.EmailException;
 
@@ -25,33 +27,39 @@ import org.apache.commons.mail.EmailException;
  * @author Dante
  */
 @Entity
-@Table(name="Clientes")
+@Table(name = "Clientes")
 @DiscriminatorValue("PAHS")
-public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver{
-    
-    @OneToOne
+public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserver {
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Paquete paquete;
-    
-    public ClientePaqueteHoras(){
-        
+
+    public ClientePaqueteHoras() {
+
     }
 
     public ClientePaqueteHoras(DatosComunesClientes datos) {
         super(datos);
     }
 
+    public ClientePaqueteHoras(DatosComunesClientes datos, Paquete paquete) {
+        super(datos);
+        setPaquete(paquete);
+    }
+
     public void enviar() {
         if (this.paquete.getHorasRestantes() <= 2) {
             try {
-                if(this.getEmail().trim().equals(""))
+                if (this.getEmail().trim().equals("")) {
                     throw new RuntimeException("No hay una direccion de mail");
+                }
                 MailSender.enviar(this.getEmail());
             } catch (EmailException ex) {
                 System.out.println(ex.getMessage());
-                
+
             }
         }
-        
+
     }
 
     /**
@@ -66,7 +74,6 @@ public class ClientePaqueteHoras extends Cliente implements HorasRestantesObserv
      */
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
-    }   
-    
+    }
 
 }
